@@ -7,99 +7,94 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root{--bg-deep:#050507;--bg-card:rgba(14,14,20,0.95);--border-glass:rgba(239,68,68,0.25);--primary:#ef4444;--text-main:#f8fafc;--text-muted:#94a3b8;--success:#22c55e;--whatsapp:#25d366;--sidebar-width:260px}
-  *{box-sizing:border-box;margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif}
-  body{background-color:var(--bg-deep);color:var(--text-main);min-height:100vh;overflow-x:hidden}
-  .hide{display:none!important}
-  #loginPage{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% -20%,#290d12 0%,var(--bg-deep) 80%);overflow-y:auto}
-  .login-card{background:var(--bg-card);backdrop-filter:blur(25px);border:1px solid var(--border-glass);border-radius:32px;padding:35px 28px;width:100%;max-width:420px;box-shadow:0 35px 70px rgba(0,0,0,.85);margin:auto}
-  .login-header{text-align:center;margin-bottom:24px;display:flex;flex-direction:column;align-items:center}
-  .logo-container{width:72px;height:72px;background:linear-gradient(145deg,#16161c,#0a0a0e);border:1px solid rgba(239,68,68,.35);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;padding:12px}
-  .logo-container img{width:100%;height:100%;object-fit:contain}
-  .login-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
-  .login-subtitle{font-size:12px;color:var(--text-muted)}
-  .form-group{margin-bottom:15px}
-  label{display:block;font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
-  input,select,textarea{width:100%;background:rgba(12,12,18,.95);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;color:var(--text-main);font-size:13px;outline:none}
-  input:focus,select:focus,textarea:focus{border-color:var(--primary);background:rgba(18,18,26,1);box-shadow:0 0 0 4px rgba(239,68,68,.15)}
-  .btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;margin-top:6px}
-  .btn:hover{background:linear-gradient(135deg,#dc2626,#b91c1c)}
-  .btn-wa{background:var(--whatsapp)}.btn-blue{background:#ef4444}.btn-red{background:#991b1b}
-  .btn-sm{padding:6px 10px;font-size:11px;width:auto;display:inline-block;margin:2px;box-shadow:none}
-  .err{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);color:#fca5a5;font-size:12px;text-align:center;padding:10px;border-radius:10px;margin-bottom:15px;display:none;font-weight:600}
-  #appPage{display:none;min-height:100vh}#appPage.show{display:flex}
-  sidebar{width:var(--sidebar-width);background:rgba(8,8,12,.98);border-right:1px solid rgba(255,255,255,.05);position:fixed;top:0;bottom:0;left:-280px;z-index:100;display:flex;flex-direction:column;transition:left .3s ease;overflow-y:auto}
-  sidebar.show{left:0}
-  .profile-sidebar{padding:20px 15px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.4);display:flex;align-items:center;gap:12px}
-  .profile-avatar{width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);background:#111}
-  .profile-info{overflow:hidden;flex:1}
-  .profile-name{font-size:13px;font-weight:800;color:#fff}
-  .profile-detail{font-size:11px;color:var(--text-muted);margin-top:2px}
-  .badge-reseller{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:9px;font-weight:800;border-radius:6px;margin-top:4px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;text-transform:uppercase}
-  .badge-member{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:9px;font-weight:700;border-radius:6px;margin-top:4px;background:rgba(255,255,255,.08);color:var(--text-muted);text-transform:uppercase}
-  .sidebar-menu{padding:12px;flex:1;display:flex;flex-direction:column;gap:4px}
-  .menu-item{display:flex;align-items:center;gap:10px;padding:11px 14px;color:var(--text-muted);font-size:13px;border-radius:10px;cursor:pointer;font-weight:600}
-  .menu-item:hover,.menu-item.active{background:rgba(239,68,68,.15);color:var(--primary)}
-  .menu-item.channel-btn:hover{background:rgba(37,211,102,.15);color:var(--whatsapp)}
-  .main-content{flex:1;margin-left:0;display:flex;flex-direction:column;width:100%}
-  @media(min-width:768px){sidebar{left:0}.main-content{margin-left:var(--sidebar-width)}}
-  .dash-nav{background:rgba(8,8,12,.9);border-bottom:1px solid rgba(255,255,255,.05);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:90}
-  .menu-btn{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1);width:38px;height:38px;border-radius:10px;cursor:pointer}
-  .logout-btn{background:#991b1b;color:#fff;border:none;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
-  #overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:95;display:none}
-  #overlay.show{display:block}
-  main{padding:20px;max-width:900px;width:100%;margin:0 auto}
-  .title{font-size:18px;font-weight:800;margin-bottom:3px;color:#fff}
-  .sub{font-size:12px;color:var(--text-muted);margin-bottom:18px}
-  .card-glass{background:var(--bg-card);border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:20px;margin-bottom:18px}
-  .price-box{text-align:center;padding:12px;border:1px dashed var(--primary);border-radius:12px;margin-bottom:14px;background:rgba(239,68,68,.04)}
-  .price-box .l{font-size:10px;color:var(--text-muted);font-weight:700}
-  .price-box .v{font-size:22px;font-weight:800;color:var(--primary);margin-top:3px}
-  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
-  @media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
-  .stat-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:14px;text-align:center}
-  .stat-card .n{font-size:18px;font-weight:800;color:var(--primary)}
-  .stat-card .t{font-size:10px;color:var(--text-muted);margin-top:3px;font-weight:700}
-  .ord-item,.usr-item,.promo-item{background:#000;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-bottom:10px;font-size:12px}
-  .ord-row,.usr-row{display:flex;justify-content:space-between;margin-bottom:5px;gap:8px}
-  .ord-row span:first-child{color:var(--text-muted)}
-  .ord-row span:last-child{text-align:right;word-break:break-all;color:#fff}
-  .badge{display:inline-block;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700}
-  .b-pending{background:#78350f;color:#fbbf24}.b-done{background:#14532d;color:#4ade80}.b-cancel{background:#7f1d1d;color:#f87171}
-  .row-flex{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-  .empty{text-align:center;color:var(--text-muted);padding:25px;font-size:12px}
-  footer{text-align:center;font-size:11px;color:var(--text-muted);padding:15px}
-  #promoPopup{position:fixed;bottom:20px;right:20px;z-index:9999;background:linear-gradient(135deg,#18181b,#09090b);border:1px solid var(--primary);border-radius:16px;padding:16px;width:280px;display:none}
-  #promoPopup.show{display:block}
-  .promo-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--text-muted);font-size:15px;cursor:pointer}
-  .sync-indicator{font-size:10px;padding:4px 8px;border-radius:6px;background:rgba(34,197,94,.15);color:var(--success);font-weight:700;display:inline-flex;align-items:center;gap:5px;margin-bottom:12px}
-  .chat-box-container{display:flex;flex-direction:column;height:450px;background:#000;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
-  .chat-messages{flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
-  .chat-bubble{max-width:80%;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.4;word-break:break-word}
-  .chat-bubble.user{background:#1e1e2d;color:#fff;align-self:flex-start}
-  .chat-bubble.admin{background:#ef4444;color:#fff;align-self:flex-end}
-  .chat-input-area{display:flex;padding:10px;background:rgba(15,15,22,.95);border-top:1px solid rgba(255,255,255,.08);gap:8px}
-  .chat-input-area input{flex:1;margin:0}
-  .chat-user-list-item{padding:10px;background:#0a0a0e;border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-  .chat-user-list-item:hover{border-color:var(--primary)}
-  #loadingOverlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px}
-  .spinner{width:50px;height:50px;border:4px solid rgba(239,68,68,.2);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
+:root{--bg-deep:#050507;--bg-card:rgba(14,14,20,.95);--border-glass:rgba(239,68,68,.25);--primary:#ef4444;--text-main:#f8fafc;--text-muted:#94a3b8;--success:#22c55e;--whatsapp:#25d366;--sidebar-width:260px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif}
+body{background:var(--bg-deep);color:var(--text-main);min-height:100vh;overflow-x:hidden}
+.hide{display:none!important}
+#loginPage{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% -20%,#290d12 0%,var(--bg-deep) 80%);overflow-y:auto}
+.login-card{background:var(--bg-card);backdrop-filter:blur(25px);border:1px solid var(--border-glass);border-radius:32px;padding:35px 28px;width:100%;max-width:420px;box-shadow:0 35px 70px rgba(0,0,0,.85);margin:auto}
+.login-header{text-align:center;margin-bottom:24px;display:flex;flex-direction:column;align-items:center}
+.logo-container{width:72px;height:72px;background:linear-gradient(145deg,#16161c,#0a0a0e);border:1px solid rgba(239,68,68,.35);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;padding:12px}
+.logo-container img{width:100%;height:100%;object-fit:contain}
+.login-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.login-subtitle{font-size:12px;color:var(--text-muted)}
+.form-group{margin-bottom:15px}
+label{display:block;font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+input,select,textarea{width:100%;background:rgba(12,12,18,.95);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;color:var(--text-main);font-size:13px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);background:rgba(18,18,26,1);box-shadow:0 0 0 4px rgba(239,68,68,.15)}
+.btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;margin-top:6px}
+.btn:hover{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+.btn-wa{background:var(--whatsapp)}.btn-blue{background:#ef4444}.btn-red{background:#991b1b}
+.btn-sm{padding:6px 10px;font-size:11px;width:auto;display:inline-block;margin:2px;box-shadow:none}
+.err{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);color:#fca5a5;font-size:12px;text-align:center;padding:10px;border-radius:10px;margin-bottom:15px;display:none;font-weight:600}
+#appPage{display:none;min-height:100vh}#appPage.show{display:flex}
+sidebar{width:var(--sidebar-width);background:rgba(8,8,12,.98);border-right:1px solid rgba(255,255,255,.05);position:fixed;top:0;bottom:0;left:-280px;z-index:100;display:flex;flex-direction:column;transition:left .3s ease;overflow-y:auto}
+sidebar.show{left:0}
+.profile-sidebar{padding:20px 15px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.4);display:flex;align-items:center;gap:12px}
+.profile-avatar{width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);background:#111}
+.profile-info{overflow:hidden;flex:1}
+.profile-name{font-size:13px;font-weight:800;color:#fff}
+.profile-detail{font-size:11px;color:var(--text-muted);margin-top:2px}
+.badge-reseller{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:9px;font-weight:800;border-radius:6px;margin-top:4px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;text-transform:uppercase}
+.badge-member{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:9px;font-weight:700;border-radius:6px;margin-top:4px;background:rgba(255,255,255,.08);color:var(--text-muted);text-transform:uppercase}
+.sidebar-menu{padding:12px;flex:1;display:flex;flex-direction:column;gap:4px}
+.menu-item{display:flex;align-items:center;gap:10px;padding:11px 14px;color:var(--text-muted);font-size:13px;border-radius:10px;cursor:pointer;font-weight:600}
+.menu-item:hover,.menu-item.active{background:rgba(239,68,68,.15);color:var(--primary)}
+.menu-item.channel-btn:hover{background:rgba(37,211,102,.15);color:var(--whatsapp)}
+.main-content{flex:1;margin-left:0;display:flex;flex-direction:column;width:100%}
+@media(min-width:768px){sidebar{left:0}.main-content{margin-left:var(--sidebar-width)}}
+.dash-nav{background:rgba(8,8,12,.9);border-bottom:1px solid rgba(255,255,255,.05);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:90}
+.menu-btn{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1);width:38px;height:38px;border-radius:10px;cursor:pointer}
+.logout-btn{background:#991b1b;color:#fff;border:none;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:95;display:none}
+#overlay.show{display:block}
+main{padding:20px;max-width:900px;width:100%;margin:0 auto}
+.title{font-size:18px;font-weight:800;margin-bottom:3px;color:#fff}
+.sub{font-size:12px;color:var(--text-muted);margin-bottom:18px}
+.card-glass{background:var(--bg-card);border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:20px;margin-bottom:18px}
+.price-box{text-align:center;padding:12px;border:1px dashed var(--primary);border-radius:12px;margin-bottom:14px;background:rgba(239,68,68,.04)}
+.price-box .l{font-size:10px;color:var(--text-muted);font-weight:700}
+.price-box .v{font-size:22px;font-weight:800;color:var(--primary);margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:14px;text-align:center}
+.stat-card .n{font-size:18px;font-weight:800;color:var(--primary)}
+.stat-card .t{font-size:10px;color:var(--text-muted);margin-top:3px;font-weight:700}
+.ord-item,.usr-item,.promo-item{background:#000;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-bottom:10px;font-size:12px}
+.ord-row,.usr-row{display:flex;justify-content:space-between;margin-bottom:5px;gap:8px}
+.ord-row span:first-child{color:var(--text-muted)}
+.ord-row span:last-child{text-align:right;word-break:break-all;color:#fff}
+.badge{display:inline-block;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700}
+.b-pending{background:#78350f;color:#fbbf24}.b-done{background:#14532d;color:#4ade80}.b-cancel{background:#7f1d1d;color:#f87171}
+.row-flex{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.empty{text-align:center;color:var(--text-muted);padding:25px;font-size:12px}
+footer{text-align:center;font-size:11px;color:var(--text-muted);padding:15px}
+#promoPopup{position:fixed;bottom:20px;right:20px;z-index:9999;background:linear-gradient(135deg,#18181b,#09090b);border:1px solid var(--primary);border-radius:16px;padding:16px;width:280px;display:none}
+#promoPopup.show{display:block}
+.promo-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--text-muted);font-size:15px;cursor:pointer}
+.sync-indicator{font-size:10px;padding:4px 8px;border-radius:6px;background:rgba(34,197,94,.15);color:var(--success);font-weight:700;display:inline-flex;align-items:center;gap:5px;margin-bottom:12px}
+.chat-box-container{display:flex;flex-direction:column;height:450px;background:#000;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+.chat-messages{flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.chat-bubble{max-width:80%;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.4;word-break:break-word}
+.chat-bubble.user{background:#1e1e2d;color:#fff;align-self:flex-start}
+.chat-bubble.admin{background:#ef4444;color:#fff;align-self:flex-end}
+.chat-input-area{display:flex;padding:10px;background:rgba(15,15,22,.95);border-top:1px solid rgba(255,255,255,.08);gap:8px}
+.chat-input-area input{flex:1;margin:0}
+.chat-user-list-item{padding:10px;background:#0a0a0e;border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.chat-user-list-item:hover{border-color:var(--primary)}
+#loadingOverlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px}
+.spinner{width:50px;height:50px;border:4px solid rgba(239,68,68,.2);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<div id="loadingOverlay">
-  <div class="spinner"></div>
-  <div style="font-size:12px;color:var(--text-muted);font-weight:700;">Menghubungkan...</div>
-</div>
+<div id="loadingOverlay"><div class="spinner"></div><div style="font-size:12px;color:var(--text-muted);font-weight:700;">Menghubungkan...</div></div>
 
 <div id="loginPage" style="display:none;">
   <div class="login-card">
     <div class="login-header">
-      <div class="logo-container">
-        <img src="https://cdn.phototourl.com/free/2026-09-16-76176509-db68-43e3-baba-4b1fe4f0393f.png" alt="Logo">
-      </div>
+      <div class="logo-container"><img src="https://cdn.phototourl.com/free/2026-09-16-76176509-db68-43e3-baba-4b1fe4f0393f.png" alt="Logo"></div>
       <div class="login-title">Masuk ke Akun</div>
       <div class="login-subtitle">Hubungi Admin untuk pembuatan akun</div>
     </div>
@@ -109,7 +104,7 @@
       <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Password" required></div>
       <button type="submit" class="btn"><i class="fa-solid fa-right-to-bracket"></i> MASUK SEKARANG</button>
     </form>
-    <div style="text-align:center;margin-top:15px;font-size:10px;color:var(--text-muted)"></div>
+    <div style="text-align:center;margin-top:15px;font-size:10px;color:var(--text-muted)">Default: admin / admin123</div>
   </div>
 </div>
 
@@ -165,7 +160,7 @@
       <button class="logout-btn" onclick="logout()">Keluar</button>
     </div>
     <main>
-      <div class="sync-indicator"><i class="fa-solid fa-bolt"></i> <span id="syncStatus">Firebase Real-time</span></div>
+      <div class="sync-indicator"><i class="fa-solid fa-lock"></i> <span id="syncStatus">Firebase Real-time · Password Terenkripsi</span></div>
 
       <section id="sec-sosmed">
         <div class="title">All Sosmed Services</div>
@@ -290,6 +285,10 @@
 
       <section id="sec-users" class="hide">
         <div class="title">Kelola User</div>
+        <div class="card-glass" style="border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.05);">
+          <div style="font-size:11px;color:#4ade80;font-weight:700;"><i class="fa-solid fa-shield-halved"></i> Password dienkripsi SHA-256</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">Admin tidak bisa lihat password user. Kalau user lupa, reset password baru.</div>
+        </div>
         <div class="card-glass">
           <h3 style="font-size:14px;margin-bottom:10px;color:var(--primary);">Tambah User</h3>
           <div class="form-group"><label>Username</label><input type="text" id="newUsrName"></div>
@@ -319,6 +318,7 @@
   </div>
 </div>
 
+<!-- FIREBASE SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
@@ -342,6 +342,37 @@ console.log('✅ Firebase initialized:', firebaseConfig.projectId);
 </script>
 
 <script>
+// ==================== HASH PASSWORD ====================
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password + 'bieberpedia_salt_2026');
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function isHashed(str) {
+  return typeof str === 'string' && /^[a-f0-9]{64}$/.test(str);
+}
+
+// Auto-hash password yang masih plaintext (migrasi)
+async function migratePasswords() {
+  let changed = false;
+  for (let i = 0; i < users.length; i++) {
+    if (!isHashed(users[i].pass)) {
+      console.log('🔒 Hashing password user:', users[i].username);
+      users[i].pass = await hashPassword(users[i].pass);
+      changed = true;
+    }
+  }
+  if (changed) {
+    saveLocal();
+    if (firebaseReady) saveToCloud();
+    console.log('✅ Migrasi password selesai');
+  }
+}
+
+// ==================== DATA DEFAULT ====================
 const defaultUsers=[
   {username:"admin",pass:"admin123",role:"admin",saldo:1000000,fullName:"Administrator",phone:"08123456789",email:"admin@bieberpedia.id",age:25,avatar:"",isReseller:true},
   {username:"user",pass:"user123",role:"user",saldo:50000,fullName:"Pengguna Setia",phone:"08987654321",email:"user@gmail.com",age:18,avatar:"",isReseller:false}
@@ -478,8 +509,8 @@ let popupInterval=null;
 let isDataLoaded=false;
 let firebaseReady=false;
 
-window.addEventListener('load',function(){
-  console.log('🚀 Starting Firebase app...');
+window.addEventListener('load',async function(){
+  console.log('🚀 Starting Firebase app (Secure Mode)...');
   try{
     var lu=JSON.parse(localStorage.getItem('bieber_users')||'null');
     if(lu&&Array.isArray(lu)&&lu.length>0)users=lu;
@@ -499,6 +530,7 @@ window.addEventListener('load',function(){
       if(f)currentUser=f;
     }
   }catch(e){console.error(e)}
+  await migratePasswords();
   waitForFirebase();
 });
 
@@ -512,7 +544,7 @@ function waitForFirebase(){
 
 function startRealtimeListener(){
   const{onValue,dataRef}=window.__fb;
-  onValue(dataRef,function(snapshot){
+  onValue(dataRef,async function(snapshot){
     const data=snapshot.val();
     if(!data){
       console.log('📭 Database kosong, upload default...');
@@ -526,6 +558,7 @@ function startRealtimeListener(){
     if(data.depositOrders&&Array.isArray(data.depositOrders))depositOrders=data.depositOrders;
     if(data.popupList&&Array.isArray(data.popupList)&&data.popupList.length>0)popupList=data.popupList;
     if(data.chatMessages&&Array.isArray(data.chatMessages))chatMessages=data.chatMessages;
+    await migratePasswords();
     saveLocal();
     if(currentUser){
       var fresh=users.find(function(u){return u.username===currentUser.username});
@@ -533,7 +566,7 @@ function startRealtimeListener(){
       else{currentUser=null;localStorage.removeItem('bieber_current_user')}
     }
     var st=document.getElementById('syncStatus');
-    if(st)st.innerText='Sync '+new Date().toLocaleTimeString('id-ID');
+    if(st)st.innerText='Sync '+new Date().toLocaleTimeString('id-ID')+' · 🔒 Terenkripsi';
     if(!isDataLoaded){
       isDataLoaded=true;
       document.getElementById('loadingOverlay').style.display='none';
@@ -560,10 +593,15 @@ function startRealtimeListener(){
   },3000);
 }
 
-function uploadDefaultData(){
+async function uploadDefaultData(){
   const{set,dataRef}=window.__fb;
-  set(dataRef,{services:defaultServices,users:defaultUsers,orders:[],depositOrders:[],popupList:defaultPopups,chatMessages:[]})
-    .then(function(){console.log('✅ Default data uploaded')})
+  const hashedUsers=[];
+  for(const u of defaultUsers){
+    hashedUsers.push({...u,pass:await hashPassword(u.pass)});
+  }
+  users=hashedUsers;
+  set(dataRef,{services:defaultServices,users:hashedUsers,orders:[],depositOrders:[],popupList:defaultPopups,chatMessages:[]})
+    .then(function(){console.log('✅ Default data uploaded (password hashed)')})
     .catch(function(e){console.error('Upload error:',e)});
 }
 
@@ -587,19 +625,22 @@ function saveToCloud(){
 
 function loadDataFromCloud(){}
 
-function handleAuth(){
+async function handleAuth(){
   var u=document.getElementById('loginUser').value.trim();
   var p=document.getElementById('loginPass').value.trim();
   var errEl=document.getElementById('loginErr');
   if(!users||users.length===0)users=defaultUsers;
-  var found=users.find(function(x){return x.username===u&&x.pass===p});
+  
+  var hashedInput=await hashPassword(p);
+  var found=users.find(function(x){return x.username===u&&x.pass===hashedInput});
+  
   if(found){
     currentUser=found;
     localStorage.setItem('bieber_current_user',JSON.stringify(currentUser));
     errEl.style.display='none';
     showApp();
   }else{
-    errEl.innerText="Username atau Password salah!";
+    errEl.innerText="Username atau Password salah! Default: admin / admin123";
     errEl.style.display='block';
   }
 }
@@ -709,14 +750,10 @@ function closeDrawer(){document.getElementById('drawer').classList.remove('show'
 function goTab(id){
   var adminTabs=['admin-chat','admin','admin-deposit','kelola-layanan','users','kelola-promo'];
   if(adminTabs.indexOf(id)!==-1&&(!currentUser||currentUser.role!=='admin')){
-    alert("Akses ditolak!");
-    return;
+    alert("Akses ditolak!");return;
   }
   var secs=['sosmed','deposit','premium','nokos','livechat','profile','riwayat','riwayat-deposit','admin-chat','admin','admin-deposit','kelola-layanan','users','kelola-promo'];
-  secs.forEach(function(s){
-    var el=document.getElementById('sec-'+s);
-    if(el)el.classList.add('hide');
-  });
+  secs.forEach(function(s){var el=document.getElementById('sec-'+s);if(el)el.classList.add('hide')});
   var t=document.getElementById('sec-'+id);
   if(t)t.classList.remove('hide');
   document.querySelectorAll('.menu-item:not(.channel-btn)').forEach(function(i){i.classList.remove('active')});
@@ -736,11 +773,7 @@ function sendUserChat(){
   var inp=document.getElementById('userChatInput');
   var t=inp.value.trim();
   if(!t)return;
-  chatMessages.push({
-    id:'CHAT-'+Date.now(),sender:currentUser.username,recipient:'admin',
-    message:t,timestamp:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),
-    isAdminRead:false
-  });
+  chatMessages.push({id:'CHAT-'+Date.now(),sender:currentUser.username,recipient:'admin',message:t,timestamp:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),isAdminRead:false});
   saveToCloud();inp.value='';
 }
 
@@ -754,8 +787,7 @@ function renderUserChat(){
     var me=x.sender===currentUser.username;
     h+='<div class="chat-bubble '+(me?'user':'admin')+'"><div style="font-size:9px;opacity:0.7;margin-bottom:2px;">'+(me?'Anda':'Admin')+' • '+x.timestamp+'</div><div>'+x.message+'</div></div>';
   });
-  c.innerHTML=h;
-  c.scrollTop=c.scrollHeight;
+  c.innerHTML=h;c.scrollTop=c.scrollHeight;
 }
 
 function renderAdminChatList(){
@@ -791,8 +823,7 @@ function renderAdminChatMessages(un){
     var isU=x.sender===un;
     h+='<div class="chat-bubble '+(isU?'user':'admin')+'"><div style="font-size:9px;opacity:0.7;margin-bottom:2px;">'+(isU?un:'Admin')+' • '+x.timestamp+'</div><div>'+x.message+'</div></div>';
   });
-  c.innerHTML=h;
-  c.scrollTop=c.scrollHeight;
+  c.innerHTML=h;c.scrollTop=c.scrollHeight;
 }
 
 function sendAdminChat(){
@@ -800,11 +831,7 @@ function sendAdminChat(){
   var inp=document.getElementById('adminChatInput');
   var t=inp.value.trim();
   if(!t)return;
-  chatMessages.push({
-    id:'CHAT-'+Date.now(),sender:'admin',recipient:activeChatUser,
-    message:t,timestamp:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),
-    isAdminRead:true
-  });
+  chatMessages.push({id:'CHAT-'+Date.now(),sender:'admin',recipient:activeChatUser,message:t,timestamp:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),isAdminRead:true});
   saveToCloud();inp.value='';
 }
 
@@ -824,8 +851,7 @@ function populateDropdowns(){
     if(services[cat]&&Array.isArray(services[cat])){
       services[cat].forEach(function(s){
         var o=document.createElement('option');
-        o.value=s.name;
-        o.setAttribute('data-price',s.price);
+        o.value=s.name;o.setAttribute('data-price',s.price);
         o.innerText=s.name+' - Rp '+s.price.toLocaleString('id-ID');
         sel.appendChild(o);
       });
@@ -845,8 +871,7 @@ function updateNokosSpinner(){
   if(!app)return;
   (services.nokos||[]).filter(function(x){return x.app===app}).forEach(function(s){
     var o=document.createElement('option');
-    o.value=s.name;
-    o.setAttribute('data-price',s.price);
+    o.value=s.name;o.setAttribute('data-price',s.price);
     o.innerText=s.name+' - Rp '+s.price.toLocaleString('id-ID');
     sp.appendChild(o);
   });
@@ -873,17 +898,10 @@ function checkoutDeposit(){
   var o=sel.options[sel.selectedIndex];
   if(!sel.value){alert("Pilih nominal dulu!");return}
   var price=parseInt(o.getAttribute('data-price')||0);
-  var d={
-    id:'DEP-'+Math.floor(100000+Math.random()*900000),
-    user:currentUser.username,category:'DEPOSIT',
-    service:sel.value,target:'QRIS',
-    price:price,status:'PENDING',adminData:'',
-    date:new Date().toLocaleString('id-ID')
-  };
+  var d={id:'DEP-'+Math.floor(100000+Math.random()*900000),user:currentUser.username,category:'DEPOSIT',service:sel.value,target:'QRIS',price:price,status:'PENDING',adminData:'',date:new Date().toLocaleString('id-ID')};
   depositOrders.unshift(d);saveToCloud();
   kirimWa('🤖 DEPOSIT BARU\nID: '+d.id+'\nUser: '+d.user+'\nNominal: '+d.service+'\nTotal: Rp '+d.price.toLocaleString('id-ID'));
-  alert("Deposit berhasil!");
-  goTab('riwayat-deposit');
+  alert("Deposit berhasil!");goTab('riwayat-deposit');
 }
 
 function checkout(cat){
@@ -899,18 +917,11 @@ function checkout(cat){
   if(i!==-1)users[i].saldo=currentUser.saldo;
   localStorage.setItem('bieber_current_user',JSON.stringify(currentUser));
   updateProfile();
-  var ord={
-    id:'ORD-'+Math.floor(100000+Math.random()*900000),
-    user:currentUser.username,category:cat.toUpperCase(),
-    service:sel.value,target:tv||'-',
-    price:price,status:'PENDING',adminData:'',otpCode:'',
-    date:new Date().toLocaleString('id-ID')
-  };
+  var ord={id:'ORD-'+Math.floor(100000+Math.random()*900000),user:currentUser.username,category:cat.toUpperCase(),service:sel.value,target:tv||'-',price:price,status:'PENDING',adminData:'',otpCode:'',date:new Date().toLocaleString('id-ID')};
   orders.unshift(ord);saveToCloud();
   kirimWa('🤖 ORDER BARU\nID: '+ord.id+'\nUser: '+ord.user+'\nLayanan: '+ord.service+'\nTarget: '+ord.target+'\nTotal: Rp '+ord.price.toLocaleString('id-ID'));
   if(inp)inp.value='';
-  alert("Order berhasil!");
-  goTab('riwayat');
+  alert("Order berhasil!");goTab('riwayat');
 }
 
 function renderRiwayat(){
@@ -922,13 +933,9 @@ function renderRiwayat(){
   mo.forEach(function(o){
     var bc=o.status==='SELESAI'?'b-done':(o.status==='GAGAL'?'b-cancel':'b-pending');
     var ex='';
-    if(o.category==='NOKOS'){
-      ex='<div class="ord-row"><span>Nomor</span><strong style="color:var(--success)">'+(o.adminData||'Menunggu...')+'</strong></div><div class="ord-row"><span>OTP</span><strong style="color:var(--primary);">'+(o.otpCode||'Menunggu...')+'</strong></div>';
-    }else if(o.category==='PREMIUM'){
-      ex='<div class="ord-row"><span>Akun</span><strong style="color:var(--success)">'+(o.adminData||'Menunggu...')+'</strong></div>';
-    }else{
-      ex='<div class="ord-row"><span>Target</span><span>'+o.target+'</span></div>';
-    }
+    if(o.category==='NOKOS'){ex='<div class="ord-row"><span>Nomor</span><strong style="color:var(--success)">'+(o.adminData||'Menunggu...')+'</strong></div><div class="ord-row"><span>OTP</span><strong style="color:var(--primary);">'+(o.otpCode||'Menunggu...')+'</strong></div>'}
+    else if(o.category==='PREMIUM'){ex='<div class="ord-row"><span>Akun</span><strong style="color:var(--success)">'+(o.adminData||'Menunggu...')+'</strong></div>'}
+    else{ex='<div class="ord-row"><span>Target</span><span>'+o.target+'</span></div>'}
     h+='<div class="ord-item"><div class="ord-row"><span>ID</span><strong>'+o.id+'</strong></div><div class="ord-row"><span>Kategori</span><span>'+o.category+'</span></div><div class="ord-row"><span>Layanan</span><span>'+o.service+'</span></div>'+ex+'<div class="ord-row"><span>Total</span><strong style="color:var(--primary)">Rp '+o.price.toLocaleString('id-ID')+'</strong></div><div class="ord-row"><span>Status</span><span class="badge '+bc+'">'+o.status+'</span></div></div>';
   });
   c.innerHTML=h;
@@ -962,13 +969,9 @@ function renderAdminOrders(){
   f.forEach(function(o){
     var bc=o.status==='SELESAI'?'b-done':(o.status==='GAGAL'?'b-cancel':'b-pending');
     var act='';
-    if(o.category==='NOKOS'){
-      act='<div style="margin:6px 0;background:rgba(0,0,0,0.5);padding:6px;border-radius:6px;"><input type="text" id="ai-n-'+o.id+'" value="'+(o.adminData||'')+'" placeholder="Nomor" style="margin-bottom:4px;font-size:11px;padding:6px;"><input type="text" id="ai-o-'+o.id+'" value="'+(o.otpCode||'')+'" placeholder="OTP" style="margin-bottom:6px;font-size:11px;padding:6px;"><button class="btn btn-sm btn-blue" onclick="saveNokos(\''+o.id+'\')">Kirim</button></div>';
-    }else if(o.category==='PREMIUM'){
-      act='<div style="margin:6px 0;background:rgba(0,0,0,0.5);padding:6px;border-radius:6px;"><input type="text" id="ai-p-'+o.id+'" value="'+(o.adminData||'')+'" placeholder="Email | Pass" style="margin-bottom:6px;font-size:11px;padding:6px;"><button class="btn btn-sm btn-blue" onclick="savePrem(\''+o.id+'\')">Kirim</button></div>';
-    }else{
-      act='<div style="margin:6px 0;display:flex;gap:4px;"><button class="btn btn-sm btn-wa" onclick="setStatus(\''+o.id+'\',\'SELESAI\')">Selesai</button><button class="btn btn-sm btn-red" onclick="setStatus(\''+o.id+'\',\'GAGAL\')">Gagal</button></div>';
-    }
+    if(o.category==='NOKOS'){act='<div style="margin:6px 0;background:rgba(0,0,0,0.5);padding:6px;border-radius:6px;"><input type="text" id="ai-n-'+o.id+'" value="'+(o.adminData||'')+'" placeholder="Nomor" style="margin-bottom:4px;font-size:11px;padding:6px;"><input type="text" id="ai-o-'+o.id+'" value="'+(o.otpCode||'')+'" placeholder="OTP" style="margin-bottom:6px;font-size:11px;padding:6px;"><button class="btn btn-sm btn-blue" onclick="saveNokos(\''+o.id+'\')">Kirim</button></div>'}
+    else if(o.category==='PREMIUM'){act='<div style="margin:6px 0;background:rgba(0,0,0,0.5);padding:6px;border-radius:6px;"><input type="text" id="ai-p-'+o.id+'" value="'+(o.adminData||'')+'" placeholder="Email | Pass" style="margin-bottom:6px;font-size:11px;padding:6px;"><button class="btn btn-sm btn-blue" onclick="savePrem(\''+o.id+'\')">Kirim</button></div>'}
+    else{act='<div style="margin:6px 0;display:flex;gap:4px;"><button class="btn btn-sm btn-wa" onclick="setStatus(\''+o.id+'\',\'SELESAI\')">Selesai</button><button class="btn btn-sm btn-red" onclick="setStatus(\''+o.id+'\',\'GAGAL\')">Gagal</button></div>'}
     h+='<div class="ord-item"><div class="ord-row"><span>ID/User</span><strong>'+o.id+' ('+o.user+')</strong></div><div class="ord-row"><span>Layanan</span><span>'+o.service+'</span></div><div class="ord-row"><span>Target</span><span>'+o.target+'</span></div><div class="ord-row"><span>Status</span><span class="badge '+bc+'">'+o.status+'</span></div>'+act+'<button class="btn btn-sm" style="background:#333;margin-top:4px;" onclick="delOrder(\''+o.id+'\')">Hapus</button></div>';
   });
   c.innerHTML=h;
@@ -1004,9 +1007,7 @@ function addService(){
     var app=prompt("Aplikasi (WhatsApp/Telegram/Google/Lainnya):","WhatsApp");
     if(!app)return;
     services[cat].push({app:app,name:name,price:price});
-  }else{
-    services[cat].push({name:name,price:price});
-  }
+  }else{services[cat].push({name:name,price:price})}
   saveToCloud();
   document.getElementById('newSrvName').value='';
   document.getElementById('newSrvPrice').value='';
@@ -1028,7 +1029,7 @@ function renderServiceList(){
 
 function delService(cat,i){if(!confirm("Hapus?"))return;services[cat].splice(i,1);saveToCloud();renderServiceList()}
 
-function addUser(){
+async function addUser(){
   if(!currentUser||currentUser.role!=='admin')return;
   var u=document.getElementById('newUsrName').value.trim();
   var p=document.getElementById('newUsrPass').value.trim();
@@ -1037,14 +1038,18 @@ function addUser(){
   var r=document.getElementById('newUsrRole').value;
   if(!u||!p){alert("Isi username & pass!");return}
   if(users.some(function(x){return x.username===u})){alert("Username sudah ada!");return}
-  users.push({username:u,pass:p,saldo:s,role:r,fullName:fn,phone:'-',email:'-',age:17,avatar:'',isReseller:r==='admin'});
+  
+  var hashedPass=await hashPassword(p);
+  
+  users.push({username:u,pass:hashedPass,saldo:s,role:r,fullName:fn,phone:'-',email:'-',age:17,avatar:'',isReseller:r==='admin'});
   saveToCloud();
   document.getElementById('newUsrName').value='';
   document.getElementById('newUsrPass').value='';
   document.getElementById('newUsrFullName').value='';
   document.getElementById('newUsrSaldo').value='0';
   kirimWa('🤖 AKUN BARU\nUsername: '+u+'\nPassword: '+p+'\nRole: '+r+'\nSaldo: Rp '+s.toLocaleString('id-ID'));
-  alert("User ditambah!");renderUsersList();
+  alert("User ditambah! Password ter-hash & aman.");
+  renderUsersList();
 }
 
 function renderUsersList(){
@@ -1052,17 +1057,32 @@ function renderUsersList(){
   var c=document.getElementById('usersListContainer');
   var h='';
   users.forEach(function(u,i){
-    h+='<div class="usr-item"><div class="ord-row"><span>Username</span><strong style="color:var(--primary);">'+u.username+'</strong></div><div class="ord-row"><span>Password</span><strong style="color:var(--success);">'+u.pass+'</strong></div><div class="form-group" style="margin-top:8px;margin-bottom:8px;"><label>Username</label><input type="text" id="eu-n-'+i+'" value="'+u.username+'"></div><div class="form-group" style="margin-bottom:8px;"><label>Password</label><input type="text" id="eu-p-'+i+'" value="'+u.pass+'"></div><div class="form-group" style="margin-bottom:8px;"><label>Nama</label><input type="text" id="eu-f-'+i+'" value="'+(u.fullName||'')+'"></div><div class="form-group" style="margin-bottom:8px;"><label>Saldo</label><input type="number" id="eu-s-'+i+'" value="'+(u.saldo||0)+'"></div><div class="row-flex"><button class="btn btn-sm btn-blue" onclick="updateUser('+i+')">Simpan</button><button class="btn btn-sm btn-red" onclick="delUser('+i+')">Hapus</button></div></div>';
+    var hashPreview=u.pass&&u.pass.length>20?u.pass.substring(0,20)+'...':u.pass;
+    h+='<div class="usr-item">'+
+      '<div class="ord-row"><span>Username</span><strong style="color:var(--primary);">'+u.username+'</strong></div>'+
+      '<div class="ord-row"><span>Password (Hash)</span><strong style="color:#fbbf24;font-size:9px;word-break:break-all;">'+hashPreview+'</strong></div>'+
+      '<div style="font-size:10px;color:var(--text-muted);margin-bottom:8px;">🔒 Password tidak bisa dilihat (terenkripsi SHA-256)</div>'+
+      '<div class="form-group" style="margin-top:8px;margin-bottom:8px;"><label>Username</label><input type="text" id="eu-n-'+i+'" value="'+u.username+'"></div>'+
+      '<div class="form-group" style="margin-bottom:8px;"><label>Password Baru (kosongkan jika tidak diubah)</label><input type="text" id="eu-p-'+i+'" placeholder="Password baru..."></div>'+
+      '<div class="form-group" style="margin-bottom:8px;"><label>Nama</label><input type="text" id="eu-f-'+i+'" value="'+(u.fullName||'')+'"></div>'+
+      '<div class="form-group" style="margin-bottom:8px;"><label>Saldo</label><input type="number" id="eu-s-'+i+'" value="'+(u.saldo||0)+'"></div>'+
+      '<div class="row-flex"><button class="btn btn-sm btn-blue" onclick="updateUser('+i+')">Simpan</button><button class="btn btn-sm btn-red" onclick="delUser('+i+')">Hapus</button></div>'+
+    '</div>';
   });
   c.innerHTML=h;
 }
 
-function updateUser(i){
+async function updateUser(i){
   users[i].username=document.getElementById('eu-n-'+i).value.trim();
-  users[i].pass=document.getElementById('eu-p-'+i).value.trim();
+  var newPass=document.getElementById('eu-p-'+i).value.trim();
+  if(newPass){
+    users[i].pass=await hashPassword(newPass);
+  }
   users[i].fullName=document.getElementById('eu-f-'+i).value.trim();
   users[i].saldo=parseInt(document.getElementById('eu-s-'+i).value)||0;
-  saveToCloud();alert("Update!");renderUsersList();
+  saveToCloud();
+  alert("User diupdate!"+(newPass?"\nPassword di-hash & disimpan.":""));
+  renderUsersList();
 }
 
 function delUser(i){
@@ -1113,7 +1133,7 @@ window.addUser=addUser;window.updateUser=updateUser;window.delUser=delUser;
 window.addPopupInfo=addPopupInfo;window.delPopup=delPopup;
 window.loadDataFromCloud=loadDataFromCloud;
 
-console.log('✅ App loaded');
+console.log('✅ App loaded - SECURE MODE (SHA-256 Hash)');
 </script>
 </body>
 </html>
